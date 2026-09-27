@@ -19,3 +19,22 @@ DISPLAY_PREVIEW = True # Toggle to show the CV2 window
 SCRIPT_FOLDER = os.path.dirname(os.path.abspath(__file__))
 RGB_FOLDER = os.path.join(SCRIPT_FOLDER, 'rgb_imgs')
 THERMAL_FOLDER = os.path.join(SCRIPT_FOLDER, 'thermal_imgs')
+
+# CSV logging
+CSV_CAPTURE = True
+CSV_FOLDER = 'data'
+CSV_FILENAME = 'labels.csv'
+
+# IMU/GNSS source
+IMU_INPUT_MODE = 'xsensdeviceapi'  # or 'serial_raw' if no ARM wheel exists for the Jetson
+
+# Manual control source
+STEERING_INPUT_MODE = 'joystick'   # or 'serial'
+WHEEL_AXIS = 0                     # ** Confirm first
+THROTTLE_AXIS = 1                  # ** Confirm first
+MAX_ANGULAR_RATE = 2.0             # rad/s
+MAX_LINEAR_SPEED = 1.53            # m/s
+
+# Only needed if STEERING_INPUT_MODE = 'serial'
+CONTROL_SERIAL_PORT = '/dev/ttyACM0'
+CONTROL_SERIAL_BAUD = 115200

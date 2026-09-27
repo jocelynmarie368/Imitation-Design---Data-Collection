@@ -40,3 +40,4 @@ images/
 # Jupyter
 .ipynb_checkpoints/
 
+*/data
