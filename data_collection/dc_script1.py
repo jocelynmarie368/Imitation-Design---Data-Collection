@@ -293,6 +293,7 @@ def main():
     print("Press 'q' to stop capturing.")
 
     frame_number = 0
+    capture_count = 0
 
     try:
         while streams:
@@ -334,6 +335,7 @@ def main():
 
             # -- Saving images --
             if should_capture:
+                capture_count += 1
                 for name, frame in frames.items():
                     stream = streams[name]
 
@@ -348,7 +350,7 @@ def main():
                         stream['image_number'] += 1
 
                 if config.CSV_CAPTURE:
-                    write_csv_row(csv_writer, frame_number)
+                    write_csv_row(csv_writer, capture_count)
                     csv_file.flush()
 
             if config.DISPLAY_PREVIEW and cv2.waitKey(1) & 0xFF == ord('q'):
