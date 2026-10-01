@@ -1,3 +1,6 @@
+# This script calculates the RGB camera matrix and lens distortion from checkerboard images.
+# It also saves images with the detected checkerboard corners for visual inspection.
+
 import cv2
 import numpy as np
 import glob
@@ -15,6 +18,8 @@ imgpoints = [] # 2D points in image plane
 # Keep calibration files together inside the camera_calib folder.
 camera_calib_folder = os.path.dirname(os.path.abspath(__file__))
 checkerboard_folder = os.path.join(camera_calib_folder, 'checkerboard_imgs')
+corner_image_folder = os.path.join(camera_calib_folder, 'calibration_corner_imgs')
+os.makedirs(corner_image_folder, exist_ok=True)
 
 imgs = glob.glob(os.path.join(checkerboard_folder, '*.jpg'))
 imgs += glob.glob(os.path.join(checkerboard_folder, '*.png'))
@@ -46,6 +51,8 @@ for filename in imgs:
         # Preview the detected corners before using them for calibration
         preview = image.copy()
         cv2.drawChessboardCorners(preview, DIMENSION, corners, found)
+        corner_image = os.path.join(corner_image_folder, os.path.basename(filename))
+        cv2.imwrite(corner_image, preview)
         cv2.imshow('Detected Checkerboard Corners', preview)
         key = cv2.waitKey(500) & 0xFF
         if key == ord('q'): # Press 'q' to exit
@@ -77,6 +84,12 @@ if success:
         camera_matrix=camera_matrix,
         distortion=distortion,
     )
+    print('Camera matrix:')
+    print(camera_matrix)
+
+    print('Distortion coefficients:')
+    print(distortion)
+    
     print("Calibration finished")
     print(f"Saved calibration data to {calibration_file}")
 else:
