@@ -29,9 +29,9 @@ Thumbs.db
 output/
 outputs/
 images/
-*.png
-*.jpg
-*.jpeg
+# *.png
+# *.jpg
+# *.jpeg
 *.bmp
 *.avi
 *.mp4
